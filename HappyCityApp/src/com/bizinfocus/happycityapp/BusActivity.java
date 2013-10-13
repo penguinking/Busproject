@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -14,36 +12,38 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
+
 import logic.InsertDataBase;
 import logic.DeleteData;
 import logic.SelectLineData;
+import logic.UpdateDataBase;
+import logic.WaitLogic;
 import adapter.AddLineAdapter;
 
 public class BusActivity extends SherlockActivity {
 
 	private adapter.CommonStationAdapter adapter;
 	private ListView ls_station_info;
-	// public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 	private Context context;
 	private List<?> list;
 	private EditText et_line;
@@ -97,50 +97,51 @@ public class BusActivity extends SherlockActivity {
 				 **/
 				Toast.makeText(getApplicationContext(), "添加常用站点信息",
 						Toast.LENGTH_SHORT).show();
+				TextView tv_line = (TextView) view.findViewById(R.id.tv_line);
+				TextView tv_station = (TextView) view
+						.findViewById(R.id.tv_station);
+				String line = tv_line.getText().toString();
+				line = line.replace("路", "");
+				String station = tv_station.getText().toString();
+				Thread workerThread = new Thread(new WaitLogic(new MyHandler(),
+						line, station));
+				workerThread.start();
 			}
 		};
 		ls_station_info.setOnItemClickListener(listItemClickListener);
 
 		/**
 		 * 添加listview滑动接听
-		 
-		ls_station_info.setOnTouchListener(new OnTouchListener() {
-			float x, y, upx, upy;
+		 * 
+		 * ls_station_info.setOnTouchListener(new OnTouchListener() { float x,
+		 * y, upx, upy;
+		 * 
+		 * public boolean onTouch(View view, MotionEvent event) { if
+		 * (event.getAction() == MotionEvent.ACTION_DOWN) { x = event.getX(); y
+		 * = event.getY(); } if (event.getAction() == MotionEvent.ACTION_UP) {
+		 * upx = event.getX(); upy = event.getY(); int position1 = ((ListView)
+		 * view).pointToPosition((int) x, (int) y); int position2 = ((ListView)
+		 * view).pointToPosition( (int) upx, (int) upy);
+		 * 
+		 * if (position1 == position2 && (upx - x) > 150) { Deldialog((ListView)
+		 * view, position1);
+		 * 
+		 * } } return false; }
+		 * 
+		 * });
+		 **/
+		ls_station_info
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			public boolean onTouch(View view, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					x = event.getX();
-					y = event.getY();
-				}
-				if (event.getAction() == MotionEvent.ACTION_UP) {
-					upx = event.getX();
-					upy = event.getY();
-					int position1 = ((ListView) view).pointToPosition((int) x,
-							(int) y);
-					int position2 = ((ListView) view).pointToPosition(
-							(int) upx, (int) upy);
-
-					if (position1 == position2 && (upx - x) > 150) {
-						Deldialog((ListView) view, position1);
-
+					@Override
+					public boolean onItemLongClick(AdapterView<?> arg0,
+							View view, int position, long arg3) {
+						// TODO Auto-generated method stub
+						Deldialog(view, position);
+						return true;
 					}
-				}
-				return false;
-			}
 
-		});
-		**/
-		ls_station_info.setOnItemLongClickListener(new OnItemLongClickListener(){
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View view,
-					int position, long arg3) {
-				// TODO Auto-generated method stub
-				Deldialog(view, position);
-				return true;
-			}
-			
-		});
+				});
 	}
 
 	private void initListView() {
@@ -194,7 +195,7 @@ public class BusActivity extends SherlockActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				
+
 				TextView tv_line = (TextView) view.findViewById(R.id.tv_line);
 				TextView tv_station = (TextView) view
 						.findViewById(R.id.tv_station);
@@ -220,20 +221,39 @@ public class BusActivity extends SherlockActivity {
 		LayoutInflater flater = LayoutInflater.from(this);
 		View view = flater.inflate(R.layout.station_dialog, null);
 		AlertDialog.Builder builder = new Builder(BusActivity.this);
-		et_line = (EditText)view.findViewById(R.id.et_line);
-		et_station = (EditText)view.findViewById(R.id.et_station);
-		ls_info=(ListView)view.findViewById(R.id.lv_info);
+		et_line = (EditText) view.findViewById(R.id.et_line);
+		et_station = (EditText) view.findViewById(R.id.et_station);
+		final String line = et_line.getText().toString().trim();
+		final String station = et_station.getText().toString().trim();
+		ls_info = (ListView) view.findViewById(R.id.lv_info);
+		final CheckBox ck_main = (CheckBox) view.findViewById(R.id.ck_main);
 		et_line.addTextChangedListener(LineWatcher);
 		et_station.addTextChangedListener(StationWatcher);
+		
 		builder.setView(view);
 		builder.setTitle("添加常用站点");
 		builder.setPositiveButton("确认", new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				InsertDataBase.InsertData(context, "火车站", "汽车站", et_line.getText().toString(), et_station.getText().toString(), "0");
-				initListView();
-				ls_station_info.invalidate();
-				dialog.dismiss();
+				((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+				if (!line.equals("") && !station.equals("")) {
+					if (ck_main.isChecked()) {
+						InsertDataBase.InsertData(context, "火车站", "汽车站",
+								line, station, "1");
+						UpdateDataBase.UpdateData(context, line,station);
+						initListView();
+						ls_station_info.invalidate();
+						dialog.dismiss();
+					}else{
+						InsertDataBase.InsertData(context, "火车站", "汽车站",
+								line, station, "0");
+						initListView();
+						ls_station_info.invalidate();
+						dialog.dismiss();
+					}
+				}else{
+					
+				}
 			}
 		});
 
@@ -244,31 +264,33 @@ public class BusActivity extends SherlockActivity {
 				dialog.dismiss();
 			}
 		});
-		ls_info.setOnItemClickListener(new OnItemClickListener(){
+		ls_info.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
-				TextView tv_line = (TextView)view.findViewById(R.id.tv_line);
-				TextView tv_station = (TextView)view.findViewById(R.id.tv_station);
+				TextView tv_line = (TextView) view.findViewById(R.id.tv_line);
+				TextView tv_station = (TextView) view
+						.findViewById(R.id.tv_station);
 				et_line.setText(tv_line.getText());
 				et_station.setText(tv_station.getText());
 			}
-			
+
 		});
 
-		builder.create().show();
+		builder.create().show();		
 	}
-	
+
 	private TextWatcher LineWatcher = new TextWatcher() {
 
 		@Override
 		public void afterTextChanged(Editable s) {
 			// TODO Auto-generated method stub
 			String line = et_line.getText().toString();
-			List<String[]> list = SelectLineData.SelectLineStationData(BusActivity.this, line);
-			Addadapter = new AddLineAdapter(BusActivity.this,list);
+			List<String[]> list = SelectLineData.SelectLineStationData(
+					BusActivity.this, line);
+			Addadapter = new AddLineAdapter(BusActivity.this, list);
 			ls_info.setAdapter(Addadapter);
 			ls_info.invalidate();
 		}
@@ -277,35 +299,46 @@ public class BusActivity extends SherlockActivity {
 		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
 			// TODO Auto-generated method stub
-			
-		}};
-		
-		private TextWatcher StationWatcher = new TextWatcher() {
 
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
-			}
+		}
+	};
 
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-				
-			}
+	private TextWatcher StationWatcher = new TextWatcher() {
 
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-				
-			}};
+		@Override
+		public void afterTextChanged(Editable s) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+
+		}
+	};
+
+	class MyHandler extends Handler {
+		@Override
+		public void handleMessage(Message msg) {
+			// 更新UI
+			System.out.println((msg.getData().getString("message")));
+		}
+	}
+
 }
