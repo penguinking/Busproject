@@ -223,36 +223,36 @@ public class BusActivity extends SherlockActivity {
 		AlertDialog.Builder builder = new Builder(BusActivity.this);
 		et_line = (EditText) view.findViewById(R.id.et_line);
 		et_station = (EditText) view.findViewById(R.id.et_station);
-		final String line = et_line.getText().toString().trim();
-		final String station = et_station.getText().toString().trim();
 		ls_info = (ListView) view.findViewById(R.id.lv_info);
 		final CheckBox ck_main = (CheckBox) view.findViewById(R.id.ck_main);
 		et_line.addTextChangedListener(LineWatcher);
-		et_station.addTextChangedListener(StationWatcher);
-		
+		et_station.addTextChangedListener(StationWatcher);	
 		builder.setView(view);
 		builder.setTitle("添加常用站点");
 		builder.setPositiveButton("确认", new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-				if (!line.equals("") && !station.equals("")) {
+				final String line = et_line.getText().toString().trim();
+				final String station = et_station.getText().toString().trim();
+				if (line.equals("") && station.equals("")) {
+					Toast.makeText(getApplicationContext(), "请添加常用站点信息",
+							Toast.LENGTH_SHORT).show();
+					System.out.println(line+"===="+station);
+				} else {
 					if (ck_main.isChecked()) {
-						InsertDataBase.InsertData(context, "火车站", "汽车站",
-								line, station, "1");
-						UpdateDataBase.UpdateData(context, line,station);
+						InsertDataBase.InsertData(context, "火车站", "汽车站", line,
+								station, "1");
+						UpdateDataBase.UpdateData(context, line, station);
 						initListView();
 						ls_station_info.invalidate();
 						dialog.dismiss();
-					}else{
-						InsertDataBase.InsertData(context, "火车站", "汽车站",
-								line, station, "0");
+					} else {
+						InsertDataBase.InsertData(context, "火车站", "汽车站", line,
+								station, "0");
 						initListView();
 						ls_station_info.invalidate();
 						dialog.dismiss();
 					}
-				}else{
-					
 				}
 			}
 		});
@@ -279,7 +279,7 @@ public class BusActivity extends SherlockActivity {
 
 		});
 
-		builder.create().show();		
+		builder.create().show();
 	}
 
 	private TextWatcher LineWatcher = new TextWatcher() {
