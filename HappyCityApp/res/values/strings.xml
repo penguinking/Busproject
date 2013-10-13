@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">开心城市</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name_1">公交</string>
+    <string name="app_name_2">购物</string>
+    <string name="app_name_3">消息</string>
+    <string name="app_name_4">聚合</string>
+    <string name="app_name_5">生活</string>
+    <string name="app_name_6">招聘</string>
+    <string name="app_name_7">汽车</string>
+    <string name="app_name_8">分类</string>
+    <string name="app_name_9">支付</string>
+    <string name="app_name_10">配送</string>
+    <string name="app_name_11">收藏</string>
+    <string name="hint_edittext_line">请选择当前线路</string>
+    <string name="hint_edittext_station">请选择当前站点</string>
+    <string name="curr_station_name">选择当前站点：</string>
+    <string name="btn_another">其他站点</string>
+    <string name="btn_quit">退出</string>
+    <string name="set_main_station">首页站点</string>
+    <string name="btn_query">直接查询</string>
+    <string name="line">线路</string>
+	<string name="station">站点</string>
+	<string name="lu">路</string>
+	<string name="set_main_station">设置为首页站点</string>
+</resources>

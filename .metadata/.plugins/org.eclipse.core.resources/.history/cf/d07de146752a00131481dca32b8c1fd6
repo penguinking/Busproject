@@ -1,0 +1,7 @@
+package com.bizinfocus.happycityapp;
+
+import android.support.v4.app.Fragment;
+
+public class Menu1Fragment extends Fragment{
+
+}

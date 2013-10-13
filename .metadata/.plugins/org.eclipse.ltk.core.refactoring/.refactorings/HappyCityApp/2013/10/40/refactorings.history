@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;HappyCityApp/res/layout/activity_bus.xml&apos; to &apos;dialog_bus.xml&apos;" description="Rename resource &apos;activity_bus.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/layout/activity_bus.xml" name="dialog_bus.xml" stamp="1380596823478" updateReferences="true"/>
+</session>

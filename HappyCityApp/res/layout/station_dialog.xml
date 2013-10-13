@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/et_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="8dp"
+        android:hint="@string/line"
+        android:ems="3" />
+    
+    <TextView
+       android:id="@+id/tv_lu"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+	   android:layout_toRightOf="@+id/et_line"
+	   android:layout_alignBottom="@+id/et_line"
+       android:text="@string/lu" 
+       android:textSize="18sp"
+       android:padding="8dp"/>
+
+   <EditText
+        android:id="@+id/et_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/tv_lu"
+		android:layout_alignParentTop="true"
+        android:ems="10"
+        android:padding="8dp"
+        android:hint="@string/station" >
+    </EditText>
+
+   <ListView
+       android:id="@+id/lv_info"
+       android:layout_width="match_parent"
+       android:layout_height="280dp"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/et_line"
+       android:minHeight="280dp" >
+   </ListView>
+
+   <CheckBox
+       android:id="@+id/ck_main"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:paddingBottom="8dp"
+       android:layout_below="@+id/lv_info"
+       android:text="@string/set_main_station" />
+
+</RelativeLayout>

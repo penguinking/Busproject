@@ -1,0 +1,49 @@
+package com.bus.activities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.jpush.android.api.JPushInterface;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.TextView;
+
+public class JPushInfoActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_push_info);
+		Bundle b=getIntent().getExtras(); 
+		
+		//int id=b.getInt(JPushInterface.EXTRA_PUSH_ID);
+		String title=b.getString(JPushInterface.EXTRA_ALERT);		
+		
+		String jsonstr=b.getString(JPushInterface.EXTRA_EXTRA);					
+		
+		/*JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			String InfoContent=obj.getString("infoText");	
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		//œ‘ æ–≈œ¢ 
+		TextView txtTitle=  (TextView) this.findViewById(R.id.txtTitle);
+		TextView txtContent=  (TextView) this.findViewById(R.id.txtConent);
+		txtTitle.setText(title);
+		txtContent.setText(jsonstr);
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		//getMenuInflater().inflate(R.menu.push_info, menu);
+		return true;
+	}
+
+}

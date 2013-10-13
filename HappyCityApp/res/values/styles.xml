@@ -1,0 +1,80 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <!-- 主窗体文字style -->
+    <style name="main_tv_style">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+    <!-- 主窗体bus附属文字style -->
+    <style name="main_tv_style_3">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+     <!-- 主窗体其他附属文字style -->
+    <style name="main_tv_style_2">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+    
+    <!-- checkboxstyle -->
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkboxbtn</item>
+        <item name="android:paddingLeft">25.0dip</item>
+        <item name="android:maxHeight">10.0dip</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Theme.NewSherlock" parent="Theme.Sherlock.Light">  
+        <item name="actionBarStyle">@style/Widget.ActionBar</item>  
+        <item name="android:actionBarStyle">@style/Widget.ActionBar</item>
+    </style>
+    
+    <!-- 标题栏的样式 -->  
+    <style name="Widget.ActionBar" parent="Widget.Sherlock.ActionBar.Solid">     
+        <item name="background">#005e9e</item>  
+        <item name="backgroundStacked">#005e9e</item>  
+        <item name="backgroundSplit">#005e9e</item>  
+        <item name="titleTextStyle">@style/Widget.ActionBar.Title</item>  
+          
+        <item name="android:background">#005e9e</item>  
+        <item name="android:backgroundStacked">#005e9e</item>  
+        <item name="android:backgroundSplit">#005e9e</item>  
+        <item name="android:titleTextStyle">@style/Widget.ActionBar.Title</item>  
+    </style>  
+      
+    <!-- 标题栏的标题样式 -->  
+    <style name="Widget.ActionBar.Title" parent="@android:TextAppearance.Holo.Widget.ActionBar.Title">  
+        <item name="android:textColor">#ffffff</item>  
+    </style>  
+
+</resources>

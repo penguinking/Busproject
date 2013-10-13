@@ -1,0 +1,32 @@
+package com.bizinfocus.happycityapp;
+
+
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class Menu1Fragment extends Fragment{
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+	View rootView = inflater.inflate(R.layout.fragment_menu_1, container, false);
+	ImageView iv_main_bus = (ImageView)findViewById(R.id.iv_main_bus);
+	iv_main_bus.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Dialog dialog = new Dialog(MainActivity.this, R.style.Dialog_bus);
+            //…Ë÷√À¸µƒContentView
+            dialog.setContentView(R.layout.dialog_bus);
+
+            dialog.show();
+		}
+		
+	});
+	return rootView;
+	}
+}
