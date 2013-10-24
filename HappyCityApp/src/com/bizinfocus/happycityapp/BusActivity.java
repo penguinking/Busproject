@@ -42,7 +42,7 @@ import adapter.AddLineAdapter;
 
 public class BusActivity extends SherlockActivity {
 
-	private adapter.CommonStationAdapter adapter;
+	private adapter.StationAdapter adapter;
 	private ListView ls_station_info;
 	private Context context;
 	private List<?> list;
@@ -149,7 +149,7 @@ public class BusActivity extends SherlockActivity {
 		list = logic.CommonLineLogic.getList(BusActivity.this);
 		if (list.size() > 0) {
 
-			adapter = new adapter.CommonStationAdapter(getApplicationContext(),
+			adapter = new adapter.StationAdapter(getApplicationContext(),
 					list);
 			ls_station_info.setAdapter(adapter);
 		} else

@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/main_default_bg_3"
     android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingBottom="30dp"
     android:paddingLeft="20dp"
-    android:paddingTop="30dp" >
-
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/main_default_bg_2"
+    android:orientation="horizontal"
+     >
+<!-- android:paddingBottom="30dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="30dp" 
+    -->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="0.8"
+        android:layout_weight="0.85"
         android:orientation="vertical" 
         >
 
@@ -34,17 +38,19 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="0.2"
+        android:layout_weight="0.15"
         android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical" >
 

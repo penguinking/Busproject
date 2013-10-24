@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.bizinfocus.happycityapp.R;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CommonStationAdapter extends BaseAdapter {
+public class StationAdapter extends BaseAdapter {
 
-	private Context context;// 上下文
-	private List list;// 站点集合
+	private List<?> list;// 站点集合
 	private LayoutInflater inflater;// 布局填充器
 	private ViewHolder holder;// 声明ViewHolder类
-	private int temp = -1;
-	private Activity activity;// 上下文
-	//private HashMap<Integer, Integer> map;
-
 	// 构造函数
-	public CommonStationAdapter(Context context, List list) {
-		this.context = context;
+	public StationAdapter(Context context, List<?> list) {
 		this.list = list;
 		//this.map= map;
 		// 实例化LayoutInflater

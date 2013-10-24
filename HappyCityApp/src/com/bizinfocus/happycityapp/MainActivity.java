@@ -7,12 +7,13 @@ package com.bizinfocus.happycityapp;
 
 
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import adapter.MenuFragmentAdapter;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends SherlockFragmentActivity {
 	MenuFragmentAdapter mAdapter;
     ViewPager mPager;
     PageIndicator mIndicator;
